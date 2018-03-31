@@ -1,0 +1,55 @@
+
+<div class="container" *ngIf="customer">
+  <h1>Customer</h1>
+
+  <form>
+    <div class="form-group form-horizontal">
+      <label class="control-label col-sm-2" for="name">Name: </label>
+      <div class="col-sm-10">
+        <p class="form-control-static">{{customer.name}}</p>
+      </div>
+    </div>
+
+    <div class="form-group form-horizontal">
+        <label class="control-label col-sm-2" for="email">Email:</label>
+        <div class="col-sm-10">
+          <p class="form-control-static">{{customer.email}}</p>
+        </div>
+    </div>
+
+    <div class="form-group form-horizontal">
+        <label class="control-label col-sm-2" for="email">Created date:</label>
+        <div class="col-sm-10">
+          <p class="form-control-static">{{customer.createdDateTime | date}}</p>
+        </div>
+    </div>
+
+    <div class="form-group form-horizontal margin-bottom">
+      <label class="control-label col-sm-2  margin-bottom" for="status">Status</label>
+      <div class="col-sm-10  margin-bottom">
+          <select class="form-control" name="status" (ngModelChange)="onStatusChanged($event)" [(ngModel)]="customer.status">
+              <option [value]="0" [selected]="customer.status ==0">Prospective</option>
+              <option [value]="1" [selected]="customer.status ==1">Current</option>
+              <option [value]="2" [selected]="customer.status ==2">Non-active</option>
+           </select>
+      </div>
+    </div>
+    
+    <div class="form-group form-horizontal margin-bottom">
+        <label class="control-label col-sm-2" for="email">Notes:</label>
+        <div class="col-sm-10">
+            <div class="" *ngFor="let note of customer.notes">
+                <span type="text" class="form-control-static col-sm-6" placeholder="Recipient's username" aria-describedby="basic-addon2">{{note.content}}</span>
+                <button class="btn btn-danger" (click)="onRemove(note.id)">Remove</button>
+              </div>
+            
+              <div class=" form-horizontal">
+                  <span class="col-sm-6"><input type="text" class="form-control col-sm-6" placeholder="Customer`s note" aria-label="Customer`s note" #note></span>
+                  <span><button class="btn btn-success " (click)="onCreate(note.value)" type="button">Add</button></span>
+              </div>
+        </div>
+    </div>
+
+
+  </form>
+</div>

@@ -1,0 +1,38 @@
+
+<div class="container">
+  <h1>Customers</h1>
+
+  <p *ngIf="!customers"><em>Loading...</em></p>
+
+  <div class="input-group mb-3">
+      <input type="text"  class="form-control" placeholder="search" aria-label="search" aria-describedby="basic-addon2" #search>
+      <span class="input-group-append">
+        <button class="btn btn-outline-secondary" type="button" (click)="onSearch(search.value)">Search</button>
+      </span>
+    </div>
+
+  <table class='table' *ngIf="customers">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th (click)="onSort('name')">Name
+          <span class="glyphicon sort-icon glyphicon-chevron-down" *ngIf="key =='name'"></span>
+        </th>
+        <th (click)="onSort('email')">Email
+            <span class="glyphicon sort-icon glyphicon-chevron-down" *ngIf="key =='email'"></span>
+        </th>
+        <th>Created time</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let c of customers" [routerLink]="['/customers', c.id]">
+        <td>{{ c.id }}</td>
+        <td>{{ c.name }}</td>
+        <td>{{ c.email }}</td>
+        <td>{{ c.createdDateTime | date }}</td>
+        <td>{{ c.status | customerStatus }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
